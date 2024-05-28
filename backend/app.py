@@ -5,7 +5,7 @@ from flask_cors import CORS
 from email.message import EmailMessage
 
 app = Flask(__name__)
-CORS(app, resources={r"/contact": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 user_email = os.environ.get('USER_EMAIL', 'default_user_email')
 user_password = os.environ.get('USER_PASSWORD', 'default_user_password')
