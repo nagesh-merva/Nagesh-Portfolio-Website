@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function sendEmail(formData) {
-        fetch('http://localhost:8000/contact', {
+        fetch('https://nagesh-portfolio-website.vercel.app/contact', {
             method: 'POST',
             body: formData,
         })
