@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const DROPlinks = document.querySelectorAll('#dropdown-menu a')
     const NAVlinks = document.querySelectorAll('nav a')
 
+    const form = document.querySelector('form')
+
 
 
     const observerOptions = {
@@ -106,6 +108,29 @@ document.addEventListener('DOMContentLoaded', function () {
             clickable: true,
         },
     })
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const formData = new FormData(form)
+
+        sendEmail(formData);
+        alert('Form submitted successfully!')
+    });
+
+    function sendEmail(formData) {
+        fetch('https://cro-b-backend.vercel.app/contact', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Email sent successfully:', data)
+            })
+            .catch(error => {
+                console.error('Error sending email:', error)
+            })
+    }
 
 })
 
