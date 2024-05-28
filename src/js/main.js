@@ -112,15 +112,19 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', function (event) {
         event.preventDefault()
 
-        const formData = new FormData(form)
+        const formData = new FormData(this)
 
         sendEmail(formData)
     });
 
     function sendEmail(formData) {
-        fetch('https://nagesh-portfolio-website.vercel.app/contact', {
+        fetch('http://localhost:8000/contact', {
             method: 'POST',
             body: formData,
+            headers: {
+                'Accept': 'application/json',
+            },
+            mode: 'cors',
         })
             .then(response => response.json())
             .then(data => {
@@ -129,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => {
                 console.error('Error sending email:', error)
+                alert(`An error occurred: ${error.message}`)
             })
     }
 
