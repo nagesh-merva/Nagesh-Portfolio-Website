@@ -134,8 +134,8 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 console.log('Email sent successfully:', data)
-                const loading = document.querySelector('.loading')
                 const sentMessage = document.querySelector('.sent-message')
+                const loading = document.querySelector('.loading')
                 loading.classList.toggle('hidden')
                 sentMessage.classList.toggle('hidden')
             })
