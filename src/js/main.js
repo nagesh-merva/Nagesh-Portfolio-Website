@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function sendEmail(formData) {
-        fetch('https://cro-b-backend.vercel.app/contact', {
+        fetch('http://localhost:8000/contact', {
             method: 'POST',
             body: formData,
         })

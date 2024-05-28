@@ -6,12 +6,9 @@ from email.message import EmailMessage
 
 app = Flask(__name__)
 
-user_email = 'portfolionagesh.1957@gmail.com '
-receiving_email = 'portfolionagesh.1957@gmail.com'
-user_password = 'qlqy eoda vftd mtkx'
-# user_email = os.environ.get('USER_EMAIL', 'default_user_email')
-# user_password = os.environ.get('USER_PASSWORD', 'default_user_password')
-# receiving_email = os.environ.get('RECEIVING_EMAIL')
+user_email = os.environ.get('USER_EMAIL', 'default_user_email')
+user_password = os.environ.get('USER_PASSWORD', 'default_user_password')
+receiving_email = os.environ.get('RECEIVING_EMAIL')
 
 @app.route('/contact', methods=['POST'])
 def contact():
