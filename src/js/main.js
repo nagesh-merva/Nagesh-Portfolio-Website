@@ -110,12 +110,11 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     form.addEventListener('submit', function (event) {
-        event.preventDefault();
+        event.preventDefault()
 
         const formData = new FormData(form)
 
-        sendEmail(formData);
-        alert('Form submitted successfully!')
+        sendEmail(formData)
     });
 
     function sendEmail(formData) {
@@ -126,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 console.log('Email sent successfully:', data)
+                alert('Form submitted successfully!')
             })
             .catch(error => {
                 console.error('Error sending email:', error)
