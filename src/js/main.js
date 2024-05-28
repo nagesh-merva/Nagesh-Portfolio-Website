@@ -113,12 +113,17 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault()
 
         const formData = new FormData(this)
+        const BTN = document.getElementById('SubmitBtn')
+        const loading = document.querySelector('.loading')
+        BTN.classList.add('hidden')
+        loading.classList.toggle('hidden')
+
 
         sendEmail(formData)
     });
 
     function sendEmail(formData) {
-        fetch('http://localhost:8000/contact', {
+        fetch('https://nagesh-portfolio-website.vercel.app/contact', {
             method: 'POST',
             body: formData,
             headers: {
@@ -129,7 +134,9 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 console.log('Email sent successfully:', data)
-                alert('Form submitted successfully!')
+                loading.classList.toggle('block')
+                const sentMessage = document.querySelector('.sent-message')
+                sentMessage.classList.toggle('hidden')
             })
             .catch(error => {
                 console.error('Error sending email:', error)
