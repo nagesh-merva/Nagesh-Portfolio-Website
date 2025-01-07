@@ -1,73 +1,132 @@
-import React from "react";
+"use client"
 
-const navigationLinks = ["about", "portfolio", "blog", "contact"];
+import React, { useState, useEffect } from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { motion } from "framer-motion"
+import { Bodoni_Moda } from "@next/font/google"
+import { Montserrat } from "@next/font/google"
+import { Menu, X } from "lucide-react"
+
+const bodoniModa = Bodoni_Moda({
+    subsets: ["latin"],
+    weight: ["400", "500"],
+})
+
+const montserrat = Montserrat({
+    subsets: ["latin"],
+    weight: ["400", "700"],
+    variable: "--font-montserrat",
+})
+
+const navigationLinks = ["about", "portfolio", "blog", "contact"]
 
 const socialIcons = [
-    { src: "https://cdn.builder.io/api/v1/image/assets/TEMP/3659b8b6f1772a2bd39ccfeea1e65f5b9b696e1a1431d6d8e72fd3459bf8b88a?placeholderIfAbsent=true&apiKey=f62cd1d3e083440d9ed660c431cacc51", alt: "Social media icon 1" },
-    { src: "https://cdn.builder.io/api/v1/image/assets/TEMP/c136c92e451bc45213f3cf91be775171ca4124952b67f740f51eb7a861f808f2?placeholderIfAbsent=true&apiKey=f62cd1d3e083440d9ed660c431cacc51", alt: "Social media icon 2" },
-    { src: "https://cdn.builder.io/api/v1/image/assets/TEMP/bb4706977ef71bc68a23b15ea99bc2ed75c38913d9a27c5e1d61956f859a451d?placeholderIfAbsent=true&apiKey=f62cd1d3e083440d9ed660c431cacc51", alt: "Social media icon 3" },
-];
+    {
+        src: "https://cdn.builder.io/api/v1/image/assets/TEMP/3659b8b6f1772a2bd39ccfeea1e65f5b9b696e1a1431d6d8e72fd3459bf8b88a",
+        link: "https://www.instagram.com/nage_sh2245?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+        alt: "Social media icon 1",
+    },
+    {
+        src: "https://cdn.builder.io/api/v1/image/assets/TEMP/c136c92e451bc45213f3cf91be775171ca4124952b67f740f51eb7a861f808f2",
+        link: "https://x.com/NageshMerva",
+        alt: "Social media icon 2",
+    },
+    {
+        src: "https://cdn.builder.io/api/v1/image/assets/TEMP/bb4706977ef71bc68a23b15ea99bc2ed75c38913d9a27c5e1d61956f859a451d",
+        link: "https://www.linkedin.com/in/nagesh-merva-8b2b57289",
+        alt: "Social media icon 3",
+    },
+]
 
-export function Navigation() {
+const Navigation = () => {
+    const [isVisible, setIsVisible] = useState(false)
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const router = usePathname()
+
+    useEffect(() => {
+        setIsVisible(true)
+    }, [])
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen)
+    }
+
     return (
-        <div className="self-stretch px-16 py-px mt-40 w-full bg-zinc-300 max-md:px-5 max-md:mt-10 max-md:max-w-full">
-            <div className="flex gap-5 max-md:flex-col">
-                <div className="flex flex-col w-[22%] max-md:ml-0 max-md:w-full">
-                    <div className="flex z-10 gap-2 self-stretch my-auto text-base text-black max-md:mt-10">
+        <motion.div
+            initial="hidden"
+            animate={isVisible ? "visible" : "hidden"}
+            className="flex items-center justify-between w-full px-6 py-4 bg-zinc-900 text-white"
+        >
+            <Link href={"/"}>
+                <div className={`text-3xl font-medium ${bodoniModa.className}`}>NM</div>
+            </Link>
+            <div className="hidden md:flex gap-7 items-center">
+                {navigationLinks.map((link) => (
+                    <Link
+                        key={link}
+                        href={`/${link}`}
+                        className={`relative self-stretch ${montserrat.className}`}
+                    >
+                        {link}
+                        {router === `/${link}` && (
+                            <motion.div
+                                layoutId="underline"
+                                className="absolute left-0 right-0 h-0.5 bg-white bottom-0"
+                            />
+                        )}
+                    </Link>
+                ))}
+                {socialIcons.map((icon) => (
+                    <Link key={icon.alt} href={icon.link} target="_blank">
                         <img
-                            loading="lazy"
-                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/720c375bd3fc7fcf8a9d0ba1afccbcc347daebbf18a6c176b87f4ae5196e57f4?placeholderIfAbsent=true&apiKey=f62cd1d3e083440d9ed660c431cacc51"
-                            alt="Brand logo"
-                            className="object-contain shrink-0 w-6 aspect-square"
+                            src={icon.src}
+                            alt={icon.alt}
+                            className="w-8 h-8 object-contain"
                         />
-                        <div className="basis-auto">2025 Nagesh Merva</div>
-                    </div>
-                </div>
-                <div className="flex flex-col ml-5 w-[78%] max-md:ml-0 max-md:w-full">
-                    <div className="mt-0 w-full max-md:mt-10 max-md:max-w-full">
-                        <div className="flex gap-5 max-md:flex-col">
-                            <div className="flex flex-col w-[38%] max-md:ml-0 max-md:w-full">
-                                <div className="flex grow max-md:mt-6">
-                                    <div className="flex flex-col justify-center items-center px-6 rounded-full aspect-square bg-zinc-300 max-md:px-5">
-                                        <img
-                                            loading="lazy"
-                                            src="https://cdn.builder.io/api/v1/image/assets/TEMP/2b4f0eb2a2ec5d4f4b37efbd4dc09c63b065205c13e6a2d3910bad9aa2a08d46?placeholderIfAbsent=true&apiKey=f62cd1d3e083440d9ed660c431cacc51"
-                                            alt="Profile"
-                                            className="object-contain aspect-square w-[156px]"
-                                        />
-                                    </div>
-                                    <div className="self-end mt-36 text-base text-black max-md:mt-10" tabIndex={0} role="button">
-                                        about
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex flex-col ml-5 w-[62%] max-md:ml-0 max-md:w-full">
-                                <div className="flex gap-7 mt-32 text-base text-black whitespace-nowrap max-md:mt-10">
-                                    <div className="flex gap-7">
-                                        {navigationLinks.map((link, index) => (
-                                            <a key={index} href="#" className="self-stretch my-auto" tabIndex="0">
-                                                {link}
-                                            </a>
-                                        ))}
-                                    </div>
-                                    <div className="flex gap-7">
-                                        {socialIcons.map((icon, index) => (
-                                            <img
-                                                key={index}
-                                                loading="lazy"
-                                                src={icon.src}
-                                                alt={icon.alt}
-                                                className="object-contain shrink-0 self-stretch w-8 aspect-square"
-                                                tabIndex={0}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </Link>
+                ))}
             </div>
-        </div>
-    );
+            <div className="md:hidden flex items-center">
+                <button
+                    onClick={toggleMobileMenu}
+                    className="focus:outline-none text-white"
+                >
+                    {isMobileMenuOpen ? (
+                        <X size={24} aria-label="Close menu" />
+                    ) : (
+                        <Menu size={24} aria-label="Open menu" />
+                    )}
+                </button>
+            </div>
+            {isMobileMenuOpen && (
+                <div className="absolute top-16 left-0 w-full bg-zinc-900 p-4 shadow-lg z-50 md:hidden">
+                    {navigationLinks.map((link) => (
+                        <Link
+                            key={link}
+                            href={`/${link}`}
+                            className="block py-2 text-base font-medium text-white"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                            {link}
+                        </Link>
+                    ))}
+                    <div className="flex gap-4 mt-4">
+                        {socialIcons.map((icon) => (
+                            <Link
+                                key={icon.alt}
+                                href={icon.link}
+                                target="_blank"
+                                className="w-8 h-8"
+                            >
+                                <img src={icon.src} alt={icon.alt} className="object-contain" />
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            )}
+        </motion.div>
+    )
 }
+
+export default Navigation
