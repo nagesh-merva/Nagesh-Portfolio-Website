@@ -54,11 +54,14 @@ function NavigationLinks() {
 export default function Footer() {
 
     const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        })
+        if (typeof window !== "undefined") {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            })
+        }
     }
+
 
     return (
         <div className="relative flex flex-col h-36 mt-1 justify-center bg-zinc-300">

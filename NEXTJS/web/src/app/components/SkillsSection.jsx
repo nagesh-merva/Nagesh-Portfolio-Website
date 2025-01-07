@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { Bar } from "react-chartjs-2"
 import {
@@ -19,10 +19,21 @@ const skillLevels = {
     40: "Beginner",
     60: "Ninja",
     80: "Master",
-    100: "OG"
+    100: "OG",
 }
 
 export default function SkillsChart() {
+    const [screenWidth, setScreenWidth] = useState(1024)
+
+    useEffect(() => {
+        const updateWidth = () => setScreenWidth(window.innerWidth)
+
+        updateWidth()
+        window.addEventListener("resize", updateWidth)
+
+        return () => window.removeEventListener("resize", updateWidth)
+    }, [])
+
     const gradientBackground = (context) => {
         const chart = context.chart
         const { ctx, chartArea } = chart
@@ -80,10 +91,10 @@ export default function SkillsChart() {
                 labels: {
                     font: {
                         family: "Montserrat",
-                        size: window.innerWidth < 768 ? 10 : 14,
+                        size: screenWidth < 768 ? 10 : 14,
                         weight: "bold",
                     },
-                    padding: window.innerWidth < 768 ? 10 : 20,
+                    padding: screenWidth < 768 ? 10 : 20,
                     usePointStyle: true,
                     pointStyle: "rectRounded",
                 },
@@ -91,25 +102,25 @@ export default function SkillsChart() {
             tooltip: {
                 callbacks: {
                     label: (context) => {
-                        const value = context.raw;
-                        let level = "Newbie";
-                        if (value >= 90) level = "OG";
-                        else if (value >= 80) level = "Master";
-                        else if (value >= 60) level = "Ninja";
-                        else if (value >= 40) level = "Beginner";
-                        return `${context.dataset.label}: ${level}`;
+                        const value = context.raw
+                        let level = "Newbie"
+                        if (value >= 90) level = "OG"
+                        else if (value >= 80) level = "Master"
+                        else if (value >= 60) level = "Ninja"
+                        else if (value >= 40) level = "Beginner"
+                        return `${context.dataset.label}: ${level}`
                     },
                 },
                 titleFont: {
                     family: "Montserrat",
-                    size: window.innerWidth < 768 ? 12 : 14,
+                    size: screenWidth < 768 ? 12 : 14,
                 },
                 bodyFont: {
                     family: "Roboto",
-                    size: window.innerWidth < 768 ? 11 : 13,
+                    size: screenWidth < 768 ? 11 : 13,
                 },
                 backgroundColor: "rgba(0, 0, 0, 0.8)",
-                padding: window.innerWidth < 768 ? 8 : 12,
+                padding: screenWidth < 768 ? 8 : 12,
                 cornerRadius: 8,
             },
         },
@@ -121,7 +132,7 @@ export default function SkillsChart() {
                 ticks: {
                     font: {
                         family: "Montserrat",
-                        size: window.innerWidth < 768 ? 10 : 12,
+                        size: screenWidth < 768 ? 10 : 12,
                         weight: "500",
                     },
                     maxRotation: 45,
@@ -139,7 +150,7 @@ export default function SkillsChart() {
                     stepSize: 20,
                     font: {
                         family: "Montserrat",
-                        size: window.innerWidth < 768 ? 10 : 12,
+                        size: screenWidth < 768 ? 10 : 12,
                         weight: "500",
                     },
                 },
