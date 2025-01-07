@@ -1,15 +1,15 @@
-"use client";
+"use client"
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Montserrat } from "next/font/google";
-import Image from "next/image";
+import React, { useState } from "react"
+import { motion } from "framer-motion"
+import { Montserrat } from "next/font/google"
+import Image from "next/image"
 
 const montserrat = Montserrat({
     subsets: ["latin"],
     weight: ["400", "700"],
     variable: "--font-montserrat",
-});
+})
 
 const roles = [
     {
@@ -22,10 +22,10 @@ const roles = [
         description: "Web Developer crafting sleek websites and writing clean, efficient code that delivers exceptional user experiences.",
         extendedDescription: "Full-stack developer proficient in ReactJs, NEXTJs, and modern web technologies. Creating responsive, scalable applications with clean architecture.",
     },
-];
+]
 
 function MainSection() {
-    const [expandedRole, setExpandedRole] = useState(null);
+    const [expandedRole, setExpandedRole] = useState(null)
 
     return (
         <div className="flex items-center justify-center px-5 md:px-14 lg:px-20">
@@ -86,7 +86,7 @@ function MainSection() {
                 </motion.div>
             </div>
         </div>
-    );
+    )
 }
 
 function RoleCard({ title, description, extendedDescription, onHover, onLeave, isExpanded }) {
@@ -137,7 +137,7 @@ function RoleCard({ title, description, extendedDescription, onHover, onLeave, i
                 </motion.div>
             </motion.div>
         </motion.div>
-    );
+    )
 }
 
-export default MainSection;
+export default MainSection

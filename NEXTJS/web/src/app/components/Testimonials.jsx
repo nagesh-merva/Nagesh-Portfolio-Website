@@ -1,12 +1,12 @@
 "use client"
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 export function Testimonials() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [direction, setDirection] = useState(0)
 
   const testimonials = [
     {
@@ -30,7 +30,7 @@ export function Testimonials() {
       company: "AI Research Lab",
       image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop"
     }
-  ];
+  ]
 
   const slideVariants = {
     enter: (direction) => ({
@@ -51,16 +51,16 @@ export function Testimonials() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setDirection(1);
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+      setDirection(1)
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [])
 
   const paginate = (newDirection) => {
-    setDirection(newDirection);
-    setCurrentIndex((prev) => (prev + newDirection + testimonials.length) % testimonials.length);
-  };
+    setDirection(newDirection)
+    setCurrentIndex((prev) => (prev + newDirection + testimonials.length) % testimonials.length)
+  }
 
   return (
     <section className="py-20 bg-white overflow-hidden">
@@ -137,5 +137,5 @@ export function Testimonials() {
         </div>
       </div>
     </section>
-  );
+  )
 }

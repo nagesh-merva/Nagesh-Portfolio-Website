@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import React, { useEffect } from "react";
-import { motion, useAnimation } from "framer-motion";
+import React, { useEffect } from "react"
+import { motion, useAnimation } from "framer-motion"
 
 const events = [
     {
@@ -59,7 +59,7 @@ const events = [
         image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&h=400&fit=crop",
         title: "Workshop Session"
     },
-];
+]
 
 function EventCard({ image, title, index }) {
     return (

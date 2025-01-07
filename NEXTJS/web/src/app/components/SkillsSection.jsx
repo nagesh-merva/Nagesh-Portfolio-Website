@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import React from "react";
-import { motion } from "framer-motion";
-import { Bar } from "react-chartjs-2";
+import React from "react"
+import { motion } from "framer-motion"
+import { Bar } from "react-chartjs-2"
 import {
     Chart as ChartJS,
     BarElement,
@@ -10,9 +10,9 @@ import {
     LinearScale,
     Tooltip,
     Legend,
-} from "chart.js";
+} from "chart.js"
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend)
 
 const skillLevels = {
     20: "Newbie",
@@ -20,24 +20,23 @@ const skillLevels = {
     60: "Ninja",
     80: "Master",
     100: "OG"
-};
+}
 
 export default function SkillsChart() {
     const gradientBackground = (context) => {
-        const chart = context.chart;
-        const { ctx, chartArea } = chart;
-        if (!chartArea) return;
+        const chart = context.chart
+        const { ctx, chartArea } = chart
+        if (!chartArea) return
 
-        const gradient1 = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-        gradient1.addColorStop(0, "rgba(147, 51, 234, 0.5)");
-        gradient1.addColorStop(1, "rgba(236, 72, 153, 0.5)");
+        const gradient1 = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top)
+        gradient1.addColorStop(0, "rgba(147, 51, 234, 0.5)")
+        gradient1.addColorStop(1, "rgba(236, 72, 153, 0.5)")
 
-        const gradient2 = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
-        gradient2.addColorStop(0, "rgba(59, 130, 246, 0.5)");
-        gradient2.addColorStop(1, "rgba(16, 185, 129, 0.5)");
-
-        return context.datasetIndex === 0 ? gradient1 : gradient2;
-    };
+        const gradient2 = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top)
+        gradient2.addColorStop(0, "rgba(59, 130, 246, 0.5)")
+        gradient2.addColorStop(1, "rgba(16, 185, 129, 0.5)")
+        return context.datasetIndex === 0 ? gradient1 : gradient2
+    }
 
     const data = {
         labels: [
@@ -70,7 +69,7 @@ export default function SkillsChart() {
                 borderRadius: 8,
             },
         ],
-    };
+    }
 
     const options = {
         responsive: true,
@@ -150,7 +149,7 @@ export default function SkillsChart() {
             duration: 2000,
             easing: "easeInOutQuart",
         },
-    };
+    }
 
     return (
         <motion.div
@@ -188,5 +187,5 @@ export default function SkillsChart() {
                 Current levels: {new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" })}
             </motion.p>
         </motion.div>
-    );
+    )
 }
