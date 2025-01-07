@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion } from "framer-motion"
-import { Bodoni_Moda } from "@next/font/google"
-import { Montserrat } from "@next/font/google"
+import { Bodoni_Moda } from "next/font/google"
+import { Montserrat } from "next/font/google"
 import { Menu, X } from "lucide-react"
 
 const bodoniModa = Bodoni_Moda({
