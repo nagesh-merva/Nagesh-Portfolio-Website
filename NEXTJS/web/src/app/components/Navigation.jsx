@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Bodoni_Moda } from "next/font/google"
 import { Montserrat } from "next/font/google"
 import { Menu, X } from "lucide-react"
@@ -42,41 +42,61 @@ const socialIcons = [
 const Navigation = () => {
     const [isVisible, setIsVisible] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-    const router = usePathname()
+    const pathname = usePathname()
 
     useEffect(() => {
         setIsVisible(true)
     }, [])
 
-    const toggleMobileMenu = () => {
-        setIsMobileMenuOpen(!isMobileMenuOpen)
+    const containerVariants = {
+        hidden: { opacity: 0, y: -20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.5, ease: "easeOut" }
+        }
+    }
+
+    const mobileMenuVariants = {
+        hidden: { opacity: 0, y: -20 },
+        visible: { opacity: 1, y: 0 }
     }
 
     return (
         <motion.div
             initial="hidden"
-            animate={isVisible ? "visible" : "hidden"}
+            animate="visible"
+            variants={containerVariants}
             className="flex items-center justify-between w-full px-6 py-4 bg-zinc-900 text-white"
         >
-            <Link href={"/"}>
+            <Link href="/">
                 <div className={`text-3xl font-medium ${bodoniModa.className}`}>NM</div>
             </Link>
+
             <div className="hidden md:flex gap-7 items-center">
-                {navigationLinks.map((link) => (
-                    <Link
-                        key={link}
-                        href={`/${link}`}
-                        className={`relative self-stretch ${montserrat.className}`}
-                    >
-                        {link}
-                        {router === `/${link}` && (
-                            <motion.div
-                                layoutId="underline"
-                                className="absolute left-0 right-0 h-0.5 bg-white bottom-0"
-                            />
-                        )}
-                    </Link>
-                ))}
+                <div className="flex gap-7 relative">
+                    {navigationLinks.map((link) => (
+                        <Link
+                            key={link}
+                            href={`/${link}`}
+                            className={`relative py-2 ${montserrat.className}`}
+                        >
+                            <span className="relative z-10">{link}</span>
+                            {pathname === `/${link}` && (
+                                <motion.div
+                                    layoutId="underline"
+                                    className="absolute left-0 bottom-0 right-0 h-0.5 bg-white"
+                                    transition={{
+                                        type: "spring",
+                                        stiffness: 380,
+                                        damping: 30
+                                    }}
+                                />
+                            )}
+                        </Link>
+                    ))}
+                </div>
+
                 {socialIcons.map((icon) => (
                     <Link key={icon.alt} href={icon.link} target="_blank">
                         <img
@@ -87,44 +107,57 @@ const Navigation = () => {
                     </Link>
                 ))}
             </div>
-            <div className="md:hidden flex items-center">
-                <button
-                    onClick={toggleMobileMenu}
-                    className="focus:outline-none text-white"
-                >
-                    {isMobileMenuOpen ? (
-                        <X size={24} aria-label="Close menu" />
-                    ) : (
-                        <Menu size={24} aria-label="Open menu" />
-                    )}
+
+            <div className="md:hidden">
+                <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                    {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
             </div>
-            {isMobileMenuOpen && (
-                <div className="absolute top-16 left-0 w-full bg-zinc-900 p-4 shadow-lg z-50 md:hidden">
-                    {navigationLinks.map((link) => (
-                        <Link
-                            key={link}
-                            href={`/${link}`}
-                            className="block py-2 text-base font-medium text-white"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                            {link}
-                        </Link>
-                    ))}
-                    <div className="flex gap-4 mt-4">
-                        {socialIcons.map((icon) => (
-                            <Link
-                                key={icon.alt}
-                                href={icon.link}
-                                target="_blank"
-                                className="w-8 h-8"
-                            >
-                                <img src={icon.src} alt={icon.alt} className="object-contain" />
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            )}
+
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        exit="hidden"
+                        variants={mobileMenuVariants}
+                        className="absolute top-16 left-0 w-full bg-zinc-900 p-4 shadow-lg z-50 md:hidden"
+                    >
+                        <div className="flex flex-col gap-4">
+                            {navigationLinks.map((link) => (
+                                <Link
+                                    key={link}
+                                    href={`/${link}`}
+                                    className="relative"
+                                    onClick={() => setIsMobileMenuOpen(false)}
+                                >
+                                    <span className={`text-base font-medium ${montserrat.className}`}>
+                                        {link}
+                                    </span>
+                                    {pathname === `/${link}` && (
+                                        <motion.div
+                                            layoutId="underline-mobile"
+                                            className="absolute left-0 bottom-0 right-0 h-0.5 bg-white"
+                                            transition={{
+                                                type: "spring",
+                                                stiffness: 380,
+                                                damping: 30
+                                            }}
+                                        />
+                                    )}
+                                </Link>
+                            ))}
+                        </div>
+                        <div className="flex gap-4 mt-4">
+                            {socialIcons.map((icon) => (
+                                <Link key={icon.alt} href={icon.link} target="_blank">
+                                    <img src={icon.src} alt={icon.alt} className="w-8 h-8 object-contain" />
+                                </Link>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </motion.div>
     )
 }

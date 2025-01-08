@@ -7,7 +7,7 @@ import Link from "next/link"
 
 const Blogs = [
     {
-        title: "The Future of Data Science in Business Analytics",
+        title: "The Next Wave of Business Analytics: What Industry Leaders Know",
         excerpt:
             "Exploring how data science is revolutionizing business decision-making and analytics...",
         date: "2024-03-15",
@@ -17,7 +17,7 @@ const Blogs = [
         category: "Data Science",
     },
     {
-        title: "Building Scalable Web Applications",
+        title: "Build Your First Scalable Web Application: From Zero to Production",
         excerpt:
             "Best practices and architecture patterns for creating scalable web applications...",
         date: "2024-03-10",

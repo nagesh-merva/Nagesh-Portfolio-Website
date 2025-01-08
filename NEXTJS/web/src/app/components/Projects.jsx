@@ -13,6 +13,13 @@ export function Projects() {
       demo: 'https://example.com'
     },
     {
+      title: "SEO tool using Llama 3.2",
+      description: 'A SEO tool powered by Llama 3.2, which generates blogs, rank your website seo, and help you optimize & organise your seo.',
+      tags: ['TailwindcCss', 'ReactJS', 'MongoDB', 'GENAI'],
+      github: 'https://github.com/nagesh-merva/scribz',
+      demo: 'https://example.com'
+    },
+    {
       title: 'CROB Platform',
       description: 'Full-stack e-commerce solution with real-time order management and tracking. integrated Razorpay Payment gateway.',
       tags: ['TailwindcCss', 'JavaScript', 'MongoDB', 'Razorpay'],
