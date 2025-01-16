@@ -8,10 +8,10 @@ export async function POST(request) {
     }
 
     const body = await request.json()
-    const { email, password } = body
+    const { password } = body
 
-    if (email === user.email && password === user.password) {
-        const userData = { name: user.name, email: user.email }
+    if (password === user.password) {
+        const userData = { name: user.name }
         return new NextResponse(JSON.stringify(userData), { status: 200 })
     } else {
         return new NextResponse(

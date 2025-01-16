@@ -2,10 +2,28 @@ import React from 'react'
 import { Plus, Trash2, Save } from 'lucide-react'
 
 export default function ContentEditor({ section, data, onUpdate }) {
-  const handleUpdate = (sectionName, index, field, value) => {
+  const handleUpdate = async (sectionName, index, field, value) => {
     const updatedItems = [...data[sectionName]]
     updatedItems[index] = { ...updatedItems[index], [field]: value }
-    onUpdate({ ...data, [sectionName]: updatedItems });
+
+    const updatedItem = updatedItems[index]
+    const response = await fetch(`/api/admin/update`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        section: sectionName,
+        index,
+        updatedItem,
+      }),
+    })
+
+    if (response.ok) {
+      onUpdate({ ...data, [sectionName]: updatedItems })
+    } else {
+      console.error("Failed to update item")
+    }
   }
 
   const handleSkillUpdate = (category, skillIndex, field, value) => {
@@ -17,18 +35,66 @@ export default function ContentEditor({ section, data, onUpdate }) {
     onUpdate({ ...data, skills: updatedSkills })
   }
 
-  const handleAddItem = (sectionName, template = {}) => {
-    onUpdate({
-      ...data,
-      [sectionName]: [...data[sectionName], template]
-    })
-  }
+  const handleAddItem = async (sectionName, template = {}) => {
+    const updatedSection = [...data[sectionName], template];
 
-  const handleRemoveItem = (sectionName, index) => {
-    const updatedItems = [...data[sectionName]]
+    try {
+      // Send a PUT request to the /api/admin/update route to add the item to the section
+      const response = await fetch('/api/admin/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          section: sectionName, // Section you're updating
+          data: updatedSection // Updated section data with the new item added
+        }),
+      });
+
+      if (response.ok) {
+        // If the update is successful, call onUpdate with the updated data
+        onUpdate({ ...data, [sectionName]: updatedSection });
+        const result = await response.json();
+        console.log('Item added successfully:', result.message);
+      } else {
+        throw new Error('Failed to add item');
+      }
+    } catch (error) {
+      console.error('Error adding item:', error);
+    }
+  };
+
+
+  const handleRemoveItem = async (sectionName, index) => {
+    const updatedItems = [...data[sectionName]];
     updatedItems.splice(index, 1);
-    onUpdate({ ...data, [sectionName]: updatedItems })
-  }
+
+    try {
+      // Send a PUT request to the /api/admin/update route to remove the item from the section
+      const response = await fetch('/api/admin/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          section: sectionName, // Section you're updating
+          data: updatedItems // Updated section data with the item removed
+        }),
+      });
+
+      if (response.ok) {
+        // If the update is successful, call onUpdate with the updated data
+        onUpdate({ ...data, [sectionName]: updatedItems });
+        const result = await response.json();
+        console.log('Item removed successfully:', result.message);
+      } else {
+        throw new Error('Failed to remove item');
+      }
+    } catch (error) {
+      console.error('Error removing item:', error);
+    }
+  };
+
 
   const renderWorkItems = () => (
     <div className="space-y-4">
