@@ -26,7 +26,7 @@ export default function Login() {
                 const data = await response.json()
                 setIsAuthenticated(true)
                 setUsernameGlobal(data.name)
-                router.push("/admin")
+                router.push("/dashboard")
                 setError("")
             } else {
                 const errorData = await response.json();

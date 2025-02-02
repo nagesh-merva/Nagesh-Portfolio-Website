@@ -6,14 +6,29 @@ export async function GET() {
         const client = await clientPromise
         const db = client.db("Portfolio")
 
-        const portfolioData = await db.collection("Portfolio_Data").findOne({})
+        const collections = [
+            "workItems",
+            "volunteering",
+            "testimonials",
+            "skills",
+            "projects",
+            "experiences",
+            "events",
+            "communities",
+            "certifications",
+            "blogs",
+            "achievements"
+        ]
 
-        if (!portfolioData) {
-            return new NextResponse(
-                JSON.stringify({ error: "No data found" }),
-                { status: 404 }
-            )
-        }
+        const portfolioData = {}
+
+        await Promise.all(
+            collections.map(async (collectionName) => {
+                const collection = db.collection(collectionName)
+                const data = await collection.find().toArray()
+                portfolioData[collectionName] = data
+            })
+        )
 
         return new NextResponse(JSON.stringify(portfolioData), { status: 200 })
     } catch (error) {
