@@ -24,17 +24,17 @@ export async function GET() {
 
         await Promise.all(
             collections.map(async (collectionName) => {
-                const collection = db.collection(collectionName)
-                const data = await collection.find().toArray()
-                portfolioData[collectionName] = data
+                const collection = db.collection(collectionName);
+                const data = await collection.find().toArray();
+                portfolioData[collectionName] = data;
             })
         )
 
-        return new NextResponse(JSON.stringify(portfolioData), { status: 200 })
+        return NextResponse.json({ alldata: portfolioData }, { status: 200 })
     } catch (error) {
-        console.error("Error fetching data:", error)
-        return new NextResponse(
-            JSON.stringify({ error: "Failed to fetch data" }),
+        console.error("Error fetching data:", error);
+        return NextResponse.json(
+            { error: "Failed to fetch data" },
             { status: 500 }
         )
     }

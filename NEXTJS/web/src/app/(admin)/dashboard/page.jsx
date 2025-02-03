@@ -31,7 +31,7 @@ export default function Admin() {
             if (response.ok) {
                 const data = await response.json()
                 console.log("data received", data)
-                setPortfolioData(data)
+                setPortfolioData(data.alldata)
                 setError("")
             } else {
                 const errorData = await response.json();

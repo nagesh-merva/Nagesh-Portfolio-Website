@@ -1,13 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import MainSection from "./components/MainSection"
-import LatestWork from "./components/LatestWork"
+import MainSection from "./components/main/MainSection"
+import LatestWork from "./components/main/LatestWork"
 import { useMainContext } from "./context/MainContext"
 
 export default function Home() {
   const { AllData, SetAllData } = useMainContext()
-  const [error, setError] = useState('')
 
   useEffect(() => {
     FetchAlldata()
@@ -25,16 +24,13 @@ export default function Home() {
 
       if (response.ok) {
         const data = await response.json()
-        // console.log("data received", data)
-        SetAllData(data)
-        setError("")
+        console.log("data received", data)
+        SetAllData(data.alldata)
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "failed to fetch")
       }
     } catch (error) {
       console.error("Error during Fetching:", error)
-      setError("Something went wrong. Please try again.")
     }
   }
 
@@ -44,5 +40,5 @@ export default function Home() {
       <MainSection />
       <LatestWork />
     </div>
-  );
+  )
 }

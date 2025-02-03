@@ -28,8 +28,8 @@ function MainSection() {
     const [expandedRole, setExpandedRole] = useState(null)
 
     return (
-        <div className="flex items-center justify-center px-5 md:px-14 lg:px-20">
-            <div className="flex items-center justify-between w-full max-w-7xl gap-5 max-md:flex-col">
+        <div className="flex items-center justify-center px-5 md:px-14 lg:px-20 overflow-x-hidden">
+            <div className="flex items-center justify-between w-full max-w-7xl gap-5 max-md:flex-col ">
                 <motion.div
                     className="flex-1 min-w-[300px]"
                     initial={{ opacity: 0, x: -50 }}
