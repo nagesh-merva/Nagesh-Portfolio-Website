@@ -8,9 +8,9 @@ app = Flask(__name__)
 CORS(app, resources={r"/contact": {"origins": "*"}}) 
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
-user_email = 'portfolionagesh.1957@gmail.com '
-receiving_email = 'portfolionagesh.1957@gmail.com'
-user_password = 'qlqy eoda vftd mtkx'
+user_email = 'Dummyemail@gmail.com '
+receiving_email = 'DummyEmail@gmail.com'
+user_password = 'dummy dummy dummy'
 
 @app.route('/contact', methods=['POST'])
 def contact():

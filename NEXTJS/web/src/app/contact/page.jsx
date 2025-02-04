@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { motion } from "framer-motion"
 
 const socialLinks = [
@@ -23,6 +23,48 @@ const socialLinks = [
 ]
 
 export default function Contact() {
+    const [formData, setFormData] = useState({
+        name: "",
+        surname: "",
+        email: "",
+        message: "",
+    })
+    const [loading, setLoading] = useState(false)
+    const [success, setSuccess] = useState(false)
+    const [error, setError] = useState("")
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setLoading(true)
+        setError("")
+        setSuccess(false)
+
+        try {
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            })
+
+            const result = await response.json()
+
+            if (response.ok) {
+                setSuccess(true)
+                setFormData({ name: "", surname: "", email: "", message: "" }) // Reset form
+            } else {
+                setError(result.error || "Something went wrong. Please try again.")
+            }
+        } catch (err) {
+            setError("Failed to send message. Please try again.")
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <div className="flex overflow-hidden flex-col bg-white h-full w-full">
             <div className="flex flex-col md:flex-row justify-between h-full w-full bg-zinc-900 pt-16 md:pt-0">
@@ -98,13 +140,13 @@ export default function Contact() {
                         className="hidden md:block h-px flex-1 border-t border-black"
                     />
                 </div>
-
                 <motion.form
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                     className="w-full max-w-[820px] p-4 md:p-6 mb-12 md:mb-20 bg-white rounded-lg border border-zinc-300"
+                    onSubmit={handleSubmit}
                 >
                     <div className="grid md:grid-cols-2 gap-6 md:gap-9">
                         <div className="flex flex-col">
@@ -112,6 +154,9 @@ export default function Contact() {
                             <input
                                 type="text"
                                 id="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
                                 className="px-4 py-3 rounded-lg border border-zinc-300"
                             />
                         </div>
@@ -120,6 +165,8 @@ export default function Contact() {
                             <input
                                 type="text"
                                 id="surname"
+                                value={formData.surname}
+                                onChange={handleChange}
                                 className="px-4 py-3 rounded-lg border border-zinc-300"
                             />
                         </div>
@@ -130,6 +177,9 @@ export default function Contact() {
                         <input
                             type="email"
                             id="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
                             className="px-4 py-3 rounded-lg border border-zinc-300"
                         />
                     </div>
@@ -138,16 +188,27 @@ export default function Contact() {
                         <label htmlFor="message" className="mb-2">Message</label>
                         <textarea
                             id="message"
+                            value={formData.message}
+                            onChange={handleChange}
+                            required
                             className="px-4 py-3 rounded-lg border border-zinc-300 min-h-[120px] md:min-h-[165px]"
                         />
                     </div>
 
                     <button
                         type="submit"
+                        disabled={loading}
                         className="w-full mt-6 md:mt-10 py-3 px-4 rounded-lg bg-zinc-800 text-white border border-zinc-800 transition-colors hover:bg-zinc-700"
                     >
-                        Submit
+                        {loading ? "Sending..." : "Submit"}
                     </button>
+
+                    {success && (
+                        <p className="text-green-600 mt-4 text-center">Message sent successfully!</p>
+                    )}
+                    {error && (
+                        <p className="text-red-600 mt-4 text-center">{error}</p>
+                    )}
                 </motion.form>
             </div>
         </div>
