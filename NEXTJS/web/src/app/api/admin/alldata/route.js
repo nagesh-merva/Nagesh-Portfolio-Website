@@ -15,6 +15,7 @@ export async function GET() {
             "experiences",
             "events",
             "communities",
+            "opensource",
             "certifications",
             "blogs",
             "achievements"

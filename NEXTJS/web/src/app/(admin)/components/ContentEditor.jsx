@@ -87,6 +87,17 @@ export default function ContentEditor({ section, data }) {
             { name: "date", type: "text", placeholder: "Date" }
           ]}
         />
+      case 'opensource':
+        return <DynamicSectionComponent
+          section="opensource"
+          data={data.opensource}
+          fields={[
+            { name: "project", type: "text", placeholder: "Project" },
+            { name: "contribution", type: "text", placeholder: "Contribution" },
+            { name: "impact", type: "text", placeholder: "Impact" },
+            { name: "link", type: "text", placeholder: "Link " }
+          ]}
+        />
       case 'achievements':
         return <DynamicSectionComponent
           section="achievements"

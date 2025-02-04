@@ -3,34 +3,12 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useMainContext } from '@/app/context/MainContext'
 
 export function Testimonials() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
-
-  const testimonials = [
-    {
-      name: "Sarah Chen",
-      role: "Senior Data Scientist at TechCorp",
-      text: "One of the most dedicated and innovative developers I've worked with. Their ability to solve complex data problems is remarkable.",
-      company: "TechCorp",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop"
-    },
-    {
-      name: "Michael Rodriguez",
-      role: "Engineering Manager",
-      text: "Exceptional problem-solving skills and a great team player. Their contributions to our projects have been invaluable.",
-      company: "Web Solutions Inc",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop"
-    },
-    {
-      name: "Dr. Emily Watson",
-      role: "Research Director",
-      text: "Their work in machine learning has significantly improved our research outcomes. A brilliant mind with excellent technical skills.",
-      company: "AI Research Lab",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop"
-    }
-  ]
+  const { AllData } = useMainContext()
 
   const slideVariants = {
     enter: (direction) => ({
@@ -52,14 +30,14 @@ export function Testimonials() {
   useEffect(() => {
     const timer = setInterval(() => {
       setDirection(1)
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length)
+      setCurrentIndex((prev) => (prev + 1) % AllData.testimonials.length)
     }, 5000)
     return () => clearInterval(timer)
   }, [])
 
   const paginate = (newDirection) => {
     setDirection(newDirection)
-    setCurrentIndex((prev) => (prev + newDirection + testimonials.length) % testimonials.length)
+    setCurrentIndex((prev) => (prev + newDirection + AllData.testimonials.length) % AllData.testimonials.length)
   }
 
   return (
@@ -94,16 +72,16 @@ export function Testimonials() {
                   <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
                     <div className="w-32 h-32 rounded-full overflow-hidden flex-shrink-0 aspect-square">
                       <img
-                        src={testimonials[currentIndex].image}
-                        alt={testimonials[currentIndex].name}
+                        src={AllData.testimonials[currentIndex].image}
+                        alt={AllData.testimonials[currentIndex].name}
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div>
-                      <p className="text-sm md:text-lg font-roboto mb-4 md:mb-6 italic text-gray-700">"{testimonials[currentIndex].text}"</p>
-                      <p className="font-montserrat font-bold text-base md:text-lg">{testimonials[currentIndex].name}</p>
-                      <p className="font-roboto text-sm md:text-base text-gray-600">{testimonials[currentIndex].role}</p>
-                      <p className="font-roboto text-sm md:text-base text-gray-500">{testimonials[currentIndex].company}</p>
+                      <p className="text-sm md:text-lg font-roboto mb-4 md:mb-6 italic text-gray-700">"{AllData.testimonials[currentIndex].text}"</p>
+                      <p className="font-montserrat font-bold text-base md:text-lg">{AllData.testimonials[currentIndex].name}</p>
+                      <p className="font-roboto text-sm md:text-base text-gray-600">{AllData.testimonials[currentIndex].role}</p>
+                      <p className="font-roboto text-sm md:text-base text-gray-500">{AllData.testimonials[currentIndex].company}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -126,7 +104,7 @@ export function Testimonials() {
             <ChevronRight className="w-5 h-5" />
           </button>
           <div className="flex justify-center gap-2 mt-4">
-            {testimonials.map((_, index) => (
+            {AllData.testimonials.map((_, index) => (
               <div
                 key={index}
                 className={`w-3 h-3 rounded-full transition-colors ${index === currentIndex ? "bg-blue-500" : "bg-gray-300"

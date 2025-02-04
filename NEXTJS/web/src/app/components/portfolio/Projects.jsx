@@ -1,39 +1,11 @@
 "use client"
 
 import { Github, ExternalLink } from 'lucide-react'
-import { motion, stagger } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { useMainContext } from '@/app/context/MainContext'
 
 export function Projects() {
-  const projects = [
-    {
-      title: 'Marketing Analysis Dashboard',
-      description: 'Interactive dashboard for visualizing complex Marketing Campaigns and Anaylsing data',
-      tags: ['Python', 'Excel', 'Kaggle', 'Data Analysis'],
-      github: 'https://github.com',
-      demo: 'https://example.com'
-    },
-    {
-      title: "SEO tool using Llama 3.2",
-      description: 'A SEO tool powered by Llama 3.2, which generates blogs, rank your website seo, and help you optimize & organise your seo.',
-      tags: ['TailwindcCss', 'ReactJS', 'MongoDB', 'GENAI'],
-      github: 'https://github.com/nagesh-merva/scribz',
-      demo: 'https://example.com'
-    },
-    {
-      title: 'CROB Platform',
-      description: 'Full-stack e-commerce solution with real-time order management and tracking. integrated Razorpay Payment gateway.',
-      tags: ['TailwindcCss', 'JavaScript', 'MongoDB', 'Razorpay'],
-      github: 'https://github.com/nagesh-merva/CROB',
-      demo: 'https://www.crob.shop'
-    },
-    {
-      title: 'Food Order App',
-      description: 'Full-stack Food order and live order tracking, with Admin Dashboard.',
-      tags: ['Reactjs', 'TailwindCss', 'SocketIO', 'Flask'],
-      github: 'https://github.com/nagesh-merva/Food-Order-App',
-      demo: 'https://example.com'
-    }
-  ]
+  const { AllData } = useMainContext()
 
   return (
     <section id="projects" className="py-20 bg-gray-50">
@@ -45,7 +17,7 @@ export function Projects() {
           transition={{ duration: 0.9 }}
           className="text-4xl font-bold font-montserrat mb-12 text-center">Featured Projects</motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {AllData.projects.map((project, index) => (
             <motion.div key={index}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}

@@ -14,15 +14,17 @@ const SkillsComponent = ({ data }) => {
         const updatedSkills = [...skills]
         if (field === "name") {
             updatedSkills[categoryIndex].skills[skillIndex].name = value
-        } else if (field === "level") {
-            updatedSkills[categoryIndex].skills[skillIndex].level = value
+        } else if (field === "skill_level") {
+            updatedSkills[categoryIndex].skills[skillIndex].skill_level = value
+        } else if (field === "confidence") {
+            updatedSkills[categoryIndex].skills[skillIndex].confidence = value
         }
         setSkills(updatedSkills)
     }
 
     const handleAddSkill = async (categoryIndex) => {
         const updatedSkills = [...skills]
-        updatedSkills[categoryIndex].skills.push({ name: "", level: 0 })
+        updatedSkills[categoryIndex].skills.push({ name: "", skill_level: 0, confidence: 0 })
 
         setSkills(updatedSkills)
     }
@@ -143,17 +145,33 @@ const SkillsComponent = ({ data }) => {
                                 />
                                 <input
                                     type="number"
-                                    value={skill.level}
+                                    value={skill.skill_level}
                                     onChange={(e) =>
                                         handleSkillUpdate(
                                             categoryIndex,
                                             skillIndex,
-                                            "level",
+                                            "skill_level",
                                             parseInt(e.target.value)
                                         )
                                     }
                                     className="w-24 p-2 border rounded"
                                     placeholder="Level"
+                                    min="0"
+                                    max="100"
+                                />
+                                <input
+                                    type="number"
+                                    value={skill.confidence}
+                                    onChange={(e) =>
+                                        handleSkillUpdate(
+                                            categoryIndex,
+                                            skillIndex,
+                                            "confidence",
+                                            parseInt(e.target.value)
+                                        )
+                                    }
+                                    className="w-24 p-2 border rounded"
+                                    placeholder="confidence"
                                     min="0"
                                     max="100"
                                 />

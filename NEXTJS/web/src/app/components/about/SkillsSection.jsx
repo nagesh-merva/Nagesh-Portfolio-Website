@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { Bar } from "react-chartjs-2"
+import { useMainContext } from "@/app/context/MainContext"
+
 import {
     Chart as ChartJS,
     BarElement,
@@ -23,7 +25,12 @@ const skillLevels = {
 }
 
 export default function SkillsChart() {
+    const { AllData } = useMainContext()
     const [screenWidth, setScreenWidth] = useState(1024)
+    const [labels, setLabels] = useState([])
+    const [skillLevel, setSkillLevels] = useState([])
+    const [confidenceLevels, setConfidenceLevels] = useState([])
+
 
     useEffect(() => {
         const updateWidth = () => setScreenWidth(window.innerWidth)
@@ -33,6 +40,34 @@ export default function SkillsChart() {
 
         return () => window.removeEventListener("resize", updateWidth)
     }, [])
+
+    useEffect(() => {
+        if (AllData?.skills && Array.isArray(AllData.skills)) {
+            const allLabels = []
+            const allSkillLevels = []
+            const allConfidenceLevels = []
+
+            AllData.skills.forEach(category => {
+                if (category.skills && Array.isArray(category.skills)) {
+                    category.skills.forEach(skill => {
+                        if (skill?.name && skill?.skill_level !== undefined && skill?.confidence !== undefined) {
+                            allLabels.push(skill.name)
+                            allSkillLevels.push(skill.skill_level)
+                            allConfidenceLevels.push(skill.confidence)
+                        }
+                    })
+                }
+            })
+
+            setLabels(allLabels)
+            setSkillLevels(allSkillLevels)
+            setConfidenceLevels(allConfidenceLevels)
+        }
+    }, [AllData])
+
+
+    console.log("Skills", skillLevel)
+    console.log("confidence", confidenceLevels)
 
     const gradientBackground = (context) => {
         const chart = context.chart
@@ -50,22 +85,11 @@ export default function SkillsChart() {
     }
 
     const data = {
-        labels: [
-            "ReactJS",
-            "TailwindCSS",
-            "Python Flask",
-            "JavaScript",
-            "Statistics",
-            "Marketing Science",
-            "Analytics",
-            "NLP",
-            "Next.js",
-            "DSA",
-        ],
+        labels: labels,
         datasets: [
             {
                 label: "Skills Level",
-                data: [90, 85, 75, 80, 85, 95, 90, 70, 75, 65],
+                data: skillLevel,
                 backgroundColor: gradientBackground,
                 borderColor: "rgba(147, 51, 234, 0.8)",
                 borderWidth: 2,
@@ -73,7 +97,7 @@ export default function SkillsChart() {
             },
             {
                 label: "Confidence Level",
-                data: [85, 80, 70, 75, 80, 90, 85, 65, 70, 60],
+                data: confidenceLevels,
                 backgroundColor: gradientBackground,
                 borderColor: "rgba(59, 130, 246, 0.8)",
                 borderWidth: 2,

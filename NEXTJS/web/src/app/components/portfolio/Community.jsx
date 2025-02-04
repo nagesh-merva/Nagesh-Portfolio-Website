@@ -3,9 +3,11 @@
 import { Users, GitBranch, Star, ExternalLink } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { useMainContext } from '@/app/context/MainContext'
 
 export function Community() {
     const [hoveredItem, setHoveredItem] = useState(null)
+    const { AllData } = useMainContext()
 
     const container = {
         hidden: { opacity: 0 },
@@ -19,31 +21,6 @@ export function Community() {
         hidden: { opacity: 0, y: 20 },
         show: { opacity: 1, y: 0 }
     }
-
-    const communities = [
-        {
-            role: "Web Dev Lead",
-            organization: "Google Developer Student Club",
-            period: "2024 - Present",
-            achievements: [
-                "Led a team of 30+ student developers",
-                "Organized 10+ technical workshops",
-                "Mentored 50+ students in web development"
-            ],
-            link: "https://developers.google.com/community/gdsc"
-        },
-        {
-            role: "Technical Head",
-            organization: "ECELL-GEC",
-            period: "2024 - Present",
-            achievements: [
-                "Conducted workshops on Tech Startups",
-                "Organized inter-college Entrepreneurship Event",
-                "Created Network for 200+ members & Alumnis"
-            ],
-            link: "https://venturaecellgec.vercel.app/"
-        }
-    ]
 
     const openSource = [
         {
@@ -87,7 +64,7 @@ export function Community() {
                             <Users className="w-6 h-6 text-blue-600" /> Community Leadership
                         </h3>
                         <div className="space-y-8">
-                            {communities.map((community, index) => (
+                            {AllData.communities.map((community, index) => (
                                 <motion.div
                                     key={index}
                                     className="relative border-l-2 border-blue-600 pl-4 hover:bg-blue-50/50 p-4 rounded-r-lg transition-colors"
@@ -153,7 +130,7 @@ export function Community() {
                             <GitBranch className="w-6 h-6 text-purple-600" /> Open Source Contributions
                         </h3>
                         <div className="space-y-8">
-                            {openSource.map((contribution, index) => (
+                            {AllData.opensource.map((contribution, index) => (
                                 <motion.div
                                     key={index}
                                     className="relative border-l-2 border-purple-600 pl-4 hover:bg-purple-50/50 p-4 rounded-r-lg transition-colors"

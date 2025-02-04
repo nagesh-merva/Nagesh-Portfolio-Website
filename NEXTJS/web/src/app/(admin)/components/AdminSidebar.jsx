@@ -10,6 +10,7 @@ export default function AdminSidebar({ activeSection, setActiveSection }) {
     { id: 'experience', label: 'Experience', icon: Briefcase },
     { id: 'skills', label: 'Skills', icon: Star },
     { id: 'testimonials', label: 'Testimonials', icon: Users },
+    { id: 'opensource', label: 'Open Source', icon: Trophy },
     { id: 'communities', label: 'Communities', icon: Users },
     { id: 'achievements', label: 'Achievements', icon: Trophy },
     { id: 'certifications', label: 'Certifications', icon: Award },

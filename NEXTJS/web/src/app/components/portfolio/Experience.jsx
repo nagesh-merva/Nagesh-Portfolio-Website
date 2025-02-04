@@ -1,24 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useMainContext } from "@/app/context/MainContext"
 
 export function Experience() {
-  const experiences = [
-    {
-      title: 'Frontend Developer intern',
-      company: 'ICS Engineers',
-      period: 'Dec 2025 - Jan 2025',
-      description: 'Built an Portfolio website for the company with Admin dashboard, Optimized frotend and developed clean-componentized React code.',
-      skills: ['React', 'Python-Flask-SocketIo', 'MongoDB', 'Tailwindcss']
-    },
-    {
-      title: 'Full Stack Developer',
-      company: 'ClickBatemedia',
-      period: 'July 2024 - Nov 2024',
-      description: 'Built and maintained web application - Food order and Delivery app for the Agency Client which helped them increase revenue by 23% then Zomato.',
-      skills: ['React', 'Python-Flask-SocketIo', 'MongoDB', 'Tailwindcss']
-    }
-  ]
+  const { AllData } = useMainContext()
 
   return (
     <section id="experience" className="py-10 md:py-20 px-4 md:px-40">
@@ -32,7 +18,7 @@ export function Experience() {
           Experience
         </motion.h2>
         <div className="space-y-6">
-          {experiences.map((exp, index) => (
+          {AllData.experiences.map((exp, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50 }}

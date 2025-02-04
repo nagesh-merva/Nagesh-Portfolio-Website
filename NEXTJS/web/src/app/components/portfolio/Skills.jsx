@@ -1,28 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useMainContext } from "@/app/context/MainContext"
 
 export function Skills() {
-  const skills = {
-    'Data Science': [
-      { name: 'Python', level: 90 },
-      { name: 'Data Visualisation', level: 85 },
-      { name: 'Data Analysis', level: 88 },
-      { name: 'SQL', level: 85 }
-    ],
-    'Web Development': [
-      { name: 'React', level: 92 },
-      { name: 'Flask', level: 88 },
-      { name: 'TypeScript', level: 85 },
-      { name: 'MongoDB', level: 82 }
-    ],
-    'Tools & Technologies': [
-      { name: 'Git', level: 90 },
-      { name: 'Docker', level: 35 },
-      { name: 'Panda', level: 45 },
-      { name: 'Scikit-learn', level: 55 }
-    ]
-  }
+  const { AllData } = useMainContext()
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -62,26 +44,26 @@ export function Skills() {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {Object.entries(skills).map(([category, categorySkills]) => (
+          {AllData.skills.map((category, index) => (
             <motion.div
-              key={category}
+              key={index}
               className="bg-white p-6 rounded-lg shadow-md"
               variants={cardVariants}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-xl font-bold font-montserrat mb-6">{category}</h3>
+              <h3 className="text-xl font-bold font-montserrat mb-6">{category.title}</h3>
               <div className="space-y-4">
-                {categorySkills.map((skill) => (
+                {category.skills.map((skill) => (
                   <div key={skill.name}>
                     <div className="flex justify-between mb-2">
                       <span className="font-roboto">{skill.name}</span>
-                      <span className="text-sm text-gray-500 font-roboto">{skill.level}%</span>
+                      <span className="text-sm text-gray-500 font-roboto">{skill.skill_level}%</span>
                     </div>
                     <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                       <motion.div
                         className="h-full bg-black rounded-full"
-                        custom={skill.level}
+                        custom={skill.skill_level}
                         variants={progressVariants}
                         initial="hidden"
                         whileInView="visible"
