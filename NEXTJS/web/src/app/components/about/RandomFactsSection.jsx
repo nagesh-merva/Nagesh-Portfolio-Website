@@ -2,6 +2,7 @@
 
 import React from "react"
 import { motion } from "framer-motion"
+import Image from "next/image"
 
 const factsList = [
     "Full-stack developer, React & TailwindCSS expert.",
@@ -26,7 +27,7 @@ export function RandomFactsSection() {
                 >
                     <img
                         loading="lazy"
-                        src="/techie.png"
+                        src="https://firebasestorage.googleapis.com/v0/b/ventura-brandbuilderbattle.appspot.com/o/Portfolio-website%2FTechie.png?alt=media&token=45e153ff-71fa-49c2-a42e-b01ac4c2d565"
                         alt="Profile visualization"
                         className="w-full h-auto object-contain"
                     />

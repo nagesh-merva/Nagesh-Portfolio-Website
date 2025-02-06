@@ -54,7 +54,7 @@ export default function Contact() {
 
             if (response.ok) {
                 setSuccess(true)
-                setFormData({ name: "", surname: "", email: "", message: "" }) // Reset form
+                setFormData({ name: "", surname: "", email: "", message: "" })
             } else {
                 setError(result.error || "Something went wrong. Please try again.")
             }

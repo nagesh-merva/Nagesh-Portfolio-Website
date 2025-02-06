@@ -22,7 +22,7 @@ export function Hero() {
           className="flex justify-center gap-4 mb-12"
         >
           <motion.a
-            href="/resume.pdf"
+            href="https://firebasestorage.googleapis.com/v0/b/ventura-brandbuilderbattle.appspot.com/o/Portfolio-website%2Fresume.pdf?alt=media&token=1deff4c1-28da-4e64-abe2-f23b74724d39"
             className="px-6 py-3 border-2 border-black rounded-lg font-roboto hover:bg-black hover:text-white transition-colors"
             target="_blank"
             rel="noopener noreferrer"

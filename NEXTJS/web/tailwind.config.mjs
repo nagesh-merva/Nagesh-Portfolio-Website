@@ -13,6 +13,7 @@ module.exports = {
       },
     },
     fontFamily: {
+      bodoni: ["Bodoni Moda", "serif"],
       montserrat: ['var(--font-montserrat)', 'sans-serif'],
       roboto: ['var(--font-roboto)', 'sans-serif']
     },

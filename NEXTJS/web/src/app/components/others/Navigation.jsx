@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
@@ -40,13 +40,8 @@ const socialIcons = [
 ]
 
 const Navigation = () => {
-    const [isVisible, setIsVisible] = useState(false)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const pathname = usePathname()
-
-    useEffect(() => {
-        setIsVisible(true)
-    }, [])
 
     const containerVariants = {
         hidden: { opacity: 0, y: -20 },

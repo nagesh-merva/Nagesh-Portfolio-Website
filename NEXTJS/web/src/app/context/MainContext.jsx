@@ -1,7 +1,7 @@
 "use client"
 
 import React, { createContext, useState, useContext, useEffect } from "react"
-
+import LoadingScreen from "../components/others/LoadPage"
 const MainContext = createContext()
 
 export const MainProvider = ({ children }) => {
@@ -18,9 +18,10 @@ export const MainProvider = ({ children }) => {
         "blogs": [],
         "achievements": []
     })
+    const [loading, setLoading] = useState(true)
     const [error, setError] = useState("")
 
-    const FetchAlldata = async () => {
+    const FetchAlldata = async (retryCount = 0) => {
         try {
             const response = await fetch("/api/admin/alldata", {
                 method: "GET",
@@ -36,28 +37,33 @@ export const MainProvider = ({ children }) => {
                 SetAllData(data.alldata)
                 sessionStorage.setItem("PortfolioData", JSON.stringify(data.alldata))
                 setError("")
+                setLoading(false)
             } else {
-                const errorData = await response.json()
-                setError(errorData.message || "Failed to fetch")
+                throw new Error("Failed to fetch")
             }
         } catch (error) {
-            console.error("Error during Fetching:", error);
-            setError("Something went wrong. Please try again.")
+            console.error("Error during Fetching:", error)
+            setError("Something went wrong. Retrying...")
+            setTimeout(() => FetchAlldata(retryCount + 1), 1500)
         }
     }
 
     useEffect(() => {
         const storedData = sessionStorage.getItem("PortfolioData")
-        if (storedData) {
-            SetAllData(JSON.parse(storedData))
-        } else {
-            FetchAlldata()
-        }
+        console.log(AllData)
+        setTimeout(() => {
+            if (storedData) {
+                SetAllData(JSON.parse(storedData))
+                setLoading(false)
+            } else {
+                FetchAlldata()
+            }
+        }, 1500)
     }, [])
 
     return (
-        <MainContext.Provider value={{ AllData, SetAllData, error }}>
-            {children}
+        <MainContext.Provider value={{ AllData, SetAllData, error, loading }}>
+            {loading ? <LoadingScreen /> : children}
         </MainContext.Provider>
     )
 }
