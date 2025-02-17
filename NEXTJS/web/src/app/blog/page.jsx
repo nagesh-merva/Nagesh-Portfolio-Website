@@ -5,7 +5,6 @@ import { Calendar, Clock, ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { useMainContext } from "../context/MainContext"
-
 export default function Blog() {
     const { AllData } = useMainContext()
     return (

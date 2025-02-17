@@ -14,10 +14,7 @@ export default function BlogPost() {
 
     useEffect(() => {
         if (AllData?.blogs) {
-            const foundPost = Array.isArray(AllData.blogs)
-                ? AllData.blogs.find(blog => blog.id === id)
-                : AllData.blogs[id]
-
+            const foundPost = AllData.blogs.find(blog => blog.id === id)
             setPost(foundPost || null)
         }
     }, [id, AllData])
