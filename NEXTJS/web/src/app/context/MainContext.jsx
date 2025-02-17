@@ -2,6 +2,9 @@
 
 import React, { createContext, useState, useContext, useEffect } from "react"
 import LoadingScreen from "../components/others/LoadPage"
+import Navigation from "../components/others/Navigation"
+import Footer from "../components/others/Footer"
+
 const MainContext = createContext()
 
 export const MainProvider = ({ children }) => {
@@ -63,7 +66,15 @@ export const MainProvider = ({ children }) => {
 
     return (
         <MainContext.Provider value={{ AllData, SetAllData, error, loading }}>
-            {loading ? <LoadingScreen /> : children}
+            {loading ? (
+                <LoadingScreen />
+            ) : (
+                <>
+                    <Navigation />
+                    {children}
+                    <Footer />
+                </>
+            )}
         </MainContext.Provider>
     )
 }
