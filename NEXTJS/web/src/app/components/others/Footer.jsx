@@ -34,7 +34,7 @@ function Footer() {
 
     return (
         <footer className="relative flex flex-col h-auto min-h-[144px] mt-5 justify-center bg-zinc-300">
-            <div className="absolute -z-0 md:inset-0 -top-16 -left-5 md:left-0 md:-top-16 flex justify-center items-center">
+            <div className="hidden sm:block absolute -z-0 md:inset-0 -top-16 -left-5 md:left-0 md:-top-16 flex justify-center items-center">
                 <div className="flex flex-col justify-center items-center p-4 rounded-full aspect-square bg-zinc-300">
                     <CircleChevronUp
                         strokeWidth={0.5}
