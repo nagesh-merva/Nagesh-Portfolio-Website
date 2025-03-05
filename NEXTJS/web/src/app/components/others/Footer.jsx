@@ -34,16 +34,15 @@ function Footer() {
 
     return (
         <footer className="relative flex flex-col h-auto min-h-[144px] mt-5 justify-center bg-zinc-300">
-            <div className="hidden sm:block absolute -z-0 md:inset-0 -top-16 -left-5 md:left-0 md:-top-16 flex justify-center items-center">
-                <div className="flex flex-col justify-center items-center p-4 rounded-full aspect-square h-fit w-fit bg-zinc-300">
+            <div className="hidden sm:block absolute -z-0 -top-16 left-1/2 -translate-x-1/2 w-full">
+                <div className="flex flex-col justify-center items-center p-4 rounded-full aspect-square h-fit w-fit bg-zinc-300 mx-auto">
                     <CircleChevronUp
                         strokeWidth={0.5}
                         onClick={scrollToTop}
-                        className=" w-[100px] h-[100px] md:w-[156px] md:h-[156px] text-gray-600 hover:text-gray-400 transition-colors cursor-pointer"
+                        className="w-[100px] h-[100px] md:w-[156px] md:h-[156px] text-gray-600 hover:text-gray-400 transition-colors cursor-pointer"
                     />
                 </div>
             </div>
-
             <div className="px-4  sm:px-8 lg:px-16 py-4 w-full bg-zinc-300 mt-0 md:mt-20">
                 <div className="flex flex-col sm:flex-row justify-between gap-5 items-center">
                     <div className="flex items-center gap-2 text-base text-black">
