@@ -1,5 +1,7 @@
 import clientPromise from "@/helpers/lib/db"
 
+export const revalidate = 120;
+
 export async function generateMetadata({ params }) {
     const { id } = params
     const client = await clientPromise
