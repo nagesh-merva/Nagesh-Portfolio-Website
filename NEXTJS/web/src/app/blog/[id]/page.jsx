@@ -1,46 +1,45 @@
-"use client"
-
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Calendar, Clock, ArrowLeft } from "lucide-react"
-import { motion } from "framer-motion"
 import Link from "next/link"
-import { useParams } from "next/navigation"
-import { useMainContext } from "@/app/context/MainContext"
+import { notFound } from "next/navigation"
+import clientPromise from "@/helpers/lib/db"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 
-export default function BlogPost() {
-    const { id } = useParams()
-    const { AllData } = useMainContext()
-    const [post, setPost] = useState(null)
+export async function generateStaticParams() {
+    const client = await clientPromise
+    const db = client.db("Portfolio")
+    const blogs = await db.collection('blogs').find({}, { projection: { id: 1 } }).toArray()
 
-    useEffect(() => {
-        if (AllData?.blogs) {
-            const foundPost = AllData.blogs.find(blog => blog.id === id)
-            setPost(foundPost || null)
-        }
-    }, [id, AllData])
+    return blogs.map((blog) => ({
+        id: blog.id,
+    }))
+}
+
+async function getBlogPost(id) {
+    const client = await clientPromise
+    const db = client.db("Portfolio")
+    const blog = await db.collection('blogs').findOne({ id: id })
+
+    if (!blog) {
+        return null
+    }
+
+    return blog
+}
+
+export default async function BlogPost({ params }) {
+    const { id } = params
+    const post = await getBlogPost(id)
 
     if (!post) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-[#EEEEEE]">
-                <div className="text-center">
-                    <h1 className="text-4xl font-bold text-gray-800 mb-4">Blog Post Not Found</h1>
-                    <Link href="/blog" className="text-indigo-600 hover:text-indigo-700">
-                        Return to Blog List
-                    </Link>
-                </div>
-            </div>
-        )
+        notFound()
     }
 
     return (
         <div className="min-h-screen bg-[#EEEEEE] py-10 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="bg-white rounded-lg shadow-lg overflow-hidden"
-                >
+            <div className="max-w-6xl mx-auto">
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                     <img
                         src={post.image}
                         alt={post.title}
@@ -71,13 +70,13 @@ export default function BlogPost() {
                             <span>{post.readTime}</span>
                         </div>
 
-                        <div className="prose max-w-none">
-                            <p className="text-gray-700 text-lg leading-relaxed whitespace-pre-line">
+                        <div className="prose lg:prose-xl mt-6">
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
                                 {post.content}
-                            </p>
+                            </ReactMarkdown>
                         </div>
                     </div>
-                </motion.div>
+                </div>
             </div>
         </div>
     )
