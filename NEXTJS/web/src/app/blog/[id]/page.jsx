@@ -6,7 +6,7 @@ import clientPromise from "@/helpers/lib/db"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 
-export const revalidate = 120;
+export const revalidate = 604800;
 
 export async function generateStaticParams() {
     const client = await clientPromise
