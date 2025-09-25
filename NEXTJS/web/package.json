@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/blob": "^2.0.0",
     "chart.js": "^4.4.7",
     "firebase-admin": "^13.0.2",
     "formidable": "^3.5.2",

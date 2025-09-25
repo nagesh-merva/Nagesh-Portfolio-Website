@@ -12,7 +12,7 @@ export default function ContentEditor({ section, data }) {
           data={data.workItems}
           fields={[
             { name: "title", type: "text", placeholder: "Title" },
-            { name: "img", type: "text", placeholder: "Image URL" },
+            { name: "img", type: "img", placeholder: "Image" },
             { name: "description", type: "textarea", placeholder: "Description" },
             { name: "github", type: "text", placeholder: "GitHub URL" },
             { name: "demo", type: "text", placeholder: "Demo URL" },
@@ -24,7 +24,7 @@ export default function ContentEditor({ section, data }) {
           data={data.events}
           fields={[
             { name: "title", type: "text", placeholder: "Title" },
-            { name: "image", type: "text", placeholder: "Image URL" }
+            { name: "image", type: "img", placeholder: "Image" }
           ]}
         />
       case 'projects':
@@ -62,7 +62,7 @@ export default function ContentEditor({ section, data }) {
             { name: "role", type: "text", placeholder: "Role" },
             { name: "company", type: "text", placeholder: "Company" },
             { name: "text", type: "textarea", placeholder: "Testimonial" },
-            { name: "image", type: "text", placeholder: "Image URL" }
+            { name: "image", type: "img", placeholder: "Image" }
           ]}
         />
       case 'communities':
@@ -125,7 +125,7 @@ export default function ContentEditor({ section, data }) {
             { name: "excerpt", type: "textarea", placeholder: "Excerpt" },
             { name: "date", type: "text", placeholder: "Date (YYYY-MM-DD)" },
             { name: "readTime", type: "text", placeholder: "Read Time" },
-            { name: "image", type: "text", placeholder: "Image URL" },
+            { name: "image", type: "img", placeholder: "Image" },
             { name: "category", type: "text", placeholder: "Category" },
             { name: "content", type: "textarea", placeholder: "Content" }
           ]}
