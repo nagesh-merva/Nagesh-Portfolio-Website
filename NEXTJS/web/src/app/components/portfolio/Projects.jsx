@@ -17,7 +17,7 @@ export function Projects() {
           transition={{ duration: 0.9 }}
           className="text-4xl font-bold font-montserrat mb-12 text-center">Featured Projects</motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {AllData.projects.map((project, index) => (
+          {[...AllData.projects].reverse().map((project, index) => (
             <motion.div key={index}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -45,14 +45,16 @@ export function Projects() {
                   >
                     <Github size={20} /> Code
                   </a>
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 hover:text-gray-600"
-                  >
-                    <ExternalLink size={20} /> Demo
-                  </a>
+                  {(project.demo && project.demo !== "") && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 hover:text-gray-600"
+                    >
+                      <ExternalLink size={20} /> Demo
+                    </a>
+                  )}
                 </div>
               </div>
             </motion.div>

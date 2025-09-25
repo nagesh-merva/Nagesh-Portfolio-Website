@@ -18,7 +18,7 @@ export function Experience() {
           Experience
         </motion.h2>
         <div className="space-y-6">
-          {AllData.experiences.map((exp, index) => (
+          {[...AllData.experiences].reverse().map((exp, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50 }}

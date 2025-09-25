@@ -32,14 +32,16 @@ function WorkCard({ item }) {
                     >
                         <Github size={18} /> Code
                     </a>
-                    <a
-                        href={item.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-sm font-medium hover:text-blue-600 transition-colors duration-200"
-                    >
-                        <ExternalLink size={18} /> Demo
-                    </a>
+                    {item.demo && (
+                        <a
+                            href={item.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-sm font-medium hover:text-blue-600 transition-colors duration-200"
+                        >
+                            <ExternalLink size={18} /> Demo
+                        </a>
+                    )}
                 </div>
             </div>
         </motion.div>

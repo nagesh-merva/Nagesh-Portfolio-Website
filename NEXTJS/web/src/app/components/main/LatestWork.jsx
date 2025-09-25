@@ -73,7 +73,7 @@ function LatestWork() {
             </motion.div>
             <div className="mt-14 w-full max-md:mt-10 max-md:max-w-full">
                 <div className="flex gap-5 max-md:flex-col">
-                    {AllData.workItems.map((item, index) => (
+                    {[...AllData.workItems].reverse().map((item, index) => (
                         <motion.div
                             key={index}
                             variants={itemVariants}
