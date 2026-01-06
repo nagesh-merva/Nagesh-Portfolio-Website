@@ -36,7 +36,7 @@ export default function Home() {
 
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full overflow-hidden">
       <MainSection />
       <LatestWork />
     </div>

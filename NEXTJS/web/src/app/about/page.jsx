@@ -2,11 +2,10 @@
 
 import AboutMainSection from "../components/about/AboutMainSection"
 import CardGrid from "../components/about/EventsSection"
-import DomainSection from "../components/about/DomainSection"
-import { RandomFactsSection } from "../components/about/RandomFactsSection"
+import RandomFactsSection from "../components/about/RandomFactsSection"
 import SkillsChart from "../components/about/SkillsSection"
-import FeaturedContent from "../components/about/FeaturedContent"
 import { motion } from "framer-motion"
+import AboutContent from "../components/about/AboutContent"
 
 export default function AboutPage() {
 
@@ -19,10 +18,9 @@ export default function AboutPage() {
         >
             <AboutMainSection />
             <CardGrid />
-            <DomainSection />
+            <AboutContent />
             <RandomFactsSection />
             <SkillsChart />
-            <FeaturedContent />
         </motion.div>
     )
 }

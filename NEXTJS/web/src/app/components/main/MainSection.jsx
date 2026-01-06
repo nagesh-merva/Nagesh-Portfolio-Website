@@ -33,7 +33,7 @@ function MainSection() {
 
     return (
         <div>
-            <div className="min-h-[90svh] bg-gradient-to-b from-[#F5F0E8] via-[#F5E5D8] to-[#FF8B6A] relative overflow-hidden flex flex-col">
+            <div className="min-h-screen bg-gradient-to-b from-[#F5F0E8] via-[#F5E5D8] to-[#FF8B6A] relative overflow-hidden flex flex-col">
                 <div className="flex-1 flex flex-col items-center justify-between px-8 py-12 md:py-5">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -50,7 +50,7 @@ function MainSection() {
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="absolute inset-x-0 mx-auto bottom-0 h-[420px] md:h-[440px] w-fit lg:h-[480px]"
+                        className="absolute inset-x-0 mx-auto bottom-0 h-[420px] md:h-[450px] w-fit lg:h-[520px]"
                     >
                         <img
                             src="/nagesh.png"

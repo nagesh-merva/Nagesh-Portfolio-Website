@@ -1,226 +1,103 @@
-"use client"
 
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
-import { Bar } from "react-chartjs-2"
 import { useMainContext } from "@/app/context/MainContext"
 
-import {
-    Chart as ChartJS,
-    BarElement,
-    CategoryScale,
-    LinearScale,
-    Tooltip,
-    Legend,
-} from "chart.js"
-
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend)
-
-const skillLevels = {
-    20: "Newbie",
-    40: "Beginner",
-    60: "Ninja",
-    80: "Master",
-    100: "OG",
-}
-
-export default function SkillsChart() {
+function SkillsChart({ skills }) {
+    const [allSkills, setAllSkills] = useState([])
     const { AllData } = useMainContext()
-    const [screenWidth, setScreenWidth] = useState(1024)
-    const [labels, setLabels] = useState([])
-    const [skillLevel, setSkillLevels] = useState([])
-    const [confidenceLevels, setConfidenceLevels] = useState([])
-
 
     useEffect(() => {
-        const updateWidth = () => setScreenWidth(window.innerWidth)
-
-        updateWidth()
-        window.addEventListener("resize", updateWidth)
-
-        return () => window.removeEventListener("resize", updateWidth)
-    }, [])
-
-    useEffect(() => {
-        if (AllData?.skills && Array.isArray(AllData.skills)) {
-            const allLabels = []
-            const allSkillLevels = []
-            const allConfidenceLevels = []
-
-            AllData.skills.forEach(category => {
-                if (category.skills && Array.isArray(category.skills)) {
-                    category.skills.forEach(skill => {
-                        if (skill?.name && skill?.skill_level !== undefined && skill?.confidence !== undefined) {
-                            allLabels.push(skill.name)
-                            allSkillLevels.push(skill.skill_level)
-                            allConfidenceLevels.push(skill.confidence)
-                        }
-                    })
-                }
+        const flatSkills = []
+        AllData.skills.forEach(category => {
+            category.skills.forEach(skill => {
+                flatSkills.push({ ...skill, category: category.category })
             })
+        })
+        setAllSkills(flatSkills)
+    }, [skills])
 
-            setLabels(allLabels)
-            setSkillLevels(allSkillLevels)
-            setConfidenceLevels(allConfidenceLevels)
-        }
-    }, [AllData])
-
-
-    console.log("Skills", skillLevel)
-    console.log("confidence", confidenceLevels)
-
-    const gradientBackground = (context) => {
-        const chart = context.chart
-        const { ctx, chartArea } = chart
-        if (!chartArea) return
-
-        const gradient1 = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top)
-        gradient1.addColorStop(0, "rgba(147, 51, 234, 0.5)")
-        gradient1.addColorStop(1, "rgba(236, 72, 153, 0.5)")
-
-        const gradient2 = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top)
-        gradient2.addColorStop(0, "rgba(59, 130, 246, 0.5)")
-        gradient2.addColorStop(1, "rgba(16, 185, 129, 0.5)")
-        return context.datasetIndex === 0 ? gradient1 : gradient2
-    }
-
-    const data = {
-        labels: labels,
-        datasets: [
-            {
-                label: "Skills Level",
-                data: skillLevel,
-                backgroundColor: gradientBackground,
-                borderColor: "rgba(147, 51, 234, 0.8)",
-                borderWidth: 2,
-                borderRadius: 8,
-            },
-            {
-                label: "Confidence Level",
-                data: confidenceLevels,
-                backgroundColor: gradientBackground,
-                borderColor: "rgba(59, 130, 246, 0.8)",
-                borderWidth: 2,
-                borderRadius: 8,
-            },
-        ],
-    }
-
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                position: "bottom",
-                labels: {
-                    font: {
-                        family: "Montserrat",
-                        size: screenWidth < 768 ? 10 : 14,
-                        weight: "bold",
-                    },
-                    padding: screenWidth < 768 ? 10 : 20,
-                    usePointStyle: true,
-                    pointStyle: "rectRounded",
-                },
-            },
-            tooltip: {
-                callbacks: {
-                    label: (context) => {
-                        const value = context.raw
-                        let level = "Newbie"
-                        if (value >= 90) level = "OG"
-                        else if (value >= 80) level = "Master"
-                        else if (value >= 60) level = "Ninja"
-                        else if (value >= 40) level = "Beginner"
-                        return `${context.dataset.label}: ${level}`
-                    },
-                },
-                titleFont: {
-                    family: "Montserrat",
-                    size: screenWidth < 768 ? 12 : 14,
-                },
-                bodyFont: {
-                    family: "Roboto",
-                    size: screenWidth < 768 ? 11 : 13,
-                },
-                backgroundColor: "rgba(0, 0, 0, 0.8)",
-                padding: screenWidth < 768 ? 8 : 12,
-                cornerRadius: 8,
-            },
-        },
-        scales: {
-            x: {
-                grid: {
-                    display: false,
-                },
-                ticks: {
-                    font: {
-                        family: "Montserrat",
-                        size: screenWidth < 768 ? 10 : 12,
-                        weight: "500",
-                    },
-                    maxRotation: 45,
-                    minRotation: 45,
-                },
-            },
-            y: {
-                beginAtZero: true,
-                max: 100,
-                grid: {
-                    color: "rgba(200, 200, 200, 0.2)",
-                },
-                ticks: {
-                    callback: (value) => skillLevels[value] || "",
-                    stepSize: 20,
-                    font: {
-                        family: "Montserrat",
-                        size: screenWidth < 768 ? 10 : 12,
-                        weight: "500",
-                    },
-                },
-            },
-        },
-        animation: {
-            duration: 2000,
-            easing: "easeInOutQuart",
-        },
-    }
+    // console.log(allSkills)
 
     return (
+        <div className="py-20 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-white to-[#F5F0E8]">
+            <div className="max-w-7xl mx-auto">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-16"
+                >
+                    <h2 className="text-4xl md:text-5xl font-black mb-4 text-black">
+                        SKILLS & EXPERTISE
+                    </h2>
+                    <p className="text-lg text-zinc-700">
+                        Technologies and tools I work with
+                    </p>
+                </motion.div>
+
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {allSkills.map((skill, index) => (
+                        <SkillCard key={index} skill={skill} index={index} />
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function SkillCard({ skill, index }) {
+
+    console.log(skill)
+    return (
         <motion.div
-            className="w-full p-4 sm:p-6 md:p-8 my-6 md:my-10 lg:my-24 bg-white rounded-xl shadow-xl max-w-5xl mx-auto"
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
+            className="group relative p-6 bg-white rounded-xl border border-gray-200 hover:border-[#FF4820] hover:shadow-xl transition-all duration-300 overflow-hidden"
         >
-            <motion.h2
-                className="text-xl md:text-3xl font-bold mb-6 md:mb-8 text-center font-montserrat bg-gradient-to-r from-purple-600 to-pink-600 text-transparent bg-clip-text"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-            >
-                Skills & Expertise
-            </motion.h2>
-            <motion.div
-                className="h-[300px] md:h-[500px] relative"
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-            >
-                <Bar data={data} options={options} />
-            </motion.div>
-            <motion.p
-                className="mt-4 md:mt-6 text-center text-xs md:text-sm text-gray-500 font-roboto"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-            >
-                Current levels: {new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" })}
-            </motion.p>
+            <div className="relative z-10">
+                <h3 className="text-xl font-bold mb-2 text-black">{skill.name}</h3>
+                <p className="text-sm text-zinc-600 mb-4">{skill.category}</p>
+                <div className="space-y-2">
+                    <div>
+                        <div className="flex justify-between text-xs mb-1 text-zinc-700">
+                            <span>Skill</span>
+                            <span>{skill.skill_level}%</span>
+                        </div>
+                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <motion.div
+                                initial={{ width: 0 }}
+                                whileInView={{ width: `${skill.skill_level}%` }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.5 + index * 0.1, duration: 0.8 }}
+                                className="h-full bg-gradient-to-r from-[#FF4820] to-[#FF8B6A]"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <div className="flex justify-between text-xs mb-1 text-zinc-700">
+                            <span>Confidence</span>
+                            <span>{skill.confidence}%</span>
+                        </div>
+                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <motion.div
+                                initial={{ width: 0 }}
+                                whileInView={{ width: `${skill.confidence}%` }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.5 + index * 0.1, duration: 0.8 }}
+                                className="h-full bg-gradient-to-r from-[#FF6B35] to-[#FFA07A]"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-[#FF4820]/0 to-[#FF4820]/0 group-hover:from-[#FF4820]/5 group-hover:to-transparent transition-all duration-300"></div>
         </motion.div>
     )
 }
+
+
+export default SkillsChart

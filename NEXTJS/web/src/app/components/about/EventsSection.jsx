@@ -5,64 +5,6 @@ import { motion, useAnimation } from "framer-motion"
 import EventCard from "./EventsCard"
 import { useMainContext } from "@/app/context/MainContext"
 
-// const events = [
-//     {
-//         id: 1,
-//         image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=400&fit=crop",
-//         title: "Tech Conference 2023"
-//     },
-//     {
-//         id: 2,
-//         image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=500&h=400&fit=crop",
-//         title: "Hackathon Winners"
-//     },
-//     {
-//         id: 3,
-//         image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=500&h=400&fit=crop",
-//         title: "College Tech Fest"
-//     },
-//     {
-//         id: 4,
-//         image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&h=400&fit=crop",
-//         title: "Workshop Session"
-//     },
-//     {
-//         id: 5,
-//         image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=500&h=400&fit=crop",
-//         title: "Coding Competition"
-//     },
-//     {
-//         id: 6,
-//         image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=400&fit=crop",
-//         title: "Tech Conference 2023"
-//     },
-//     {
-//         id: 7,
-//         image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=500&h=400&fit=crop",
-//         title: "Hackathon Winners"
-//     },
-//     {
-//         id: 8,
-//         image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=400&fit=crop",
-//         title: "Tech Conference 2023"
-//     },
-//     {
-//         id: 9,
-//         image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=500&h=400&fit=crop",
-//         title: "Hackathon Winners"
-//     },
-//     {
-//         id: 10,
-//         image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=500&h=400&fit=crop",
-//         title: "College Tech Fest"
-//     },
-//     {
-//         id: 11,
-//         image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&h=400&fit=crop",
-//         title: "Workshop Session"
-//     },
-// ]
-
 export default function CardGrid() {
     const { AllData } = useMainContext()
     const controls = useAnimation()
@@ -86,7 +28,22 @@ export default function CardGrid() {
 
     return (
         <div className="relative w-full overflow-hidden bg-white py-12">
-            <h2 className="text-3xl font-bold text-center mb-8">Events & Competitions</h2>
+            <div className="px-6 md:px-12 lg:px-20 mb-12">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="max-w-7xl mx-auto text-center"
+                >
+                    <h2 className="text-4xl md:text-5xl font-black mb-4">
+                        EVENTS & COMPETITIONS
+                    </h2>
+                    <p className="text-lg text-gray-400">
+                        Where I've learned and competed
+                    </p>
+                </motion.div>
+            </div>
             <div className="relative w-full overflow-hidden">
                 <motion.div
                     className="flex gap-6 px-20"
