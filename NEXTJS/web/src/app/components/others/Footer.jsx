@@ -21,9 +21,9 @@ const socialLinks = [
 ]
 
 const navItems = [
-    { name: "Work", href: "/work" },
+    { name: "Work", href: "/portfolio" },
     { name: "About", href: "/about" },
-    { name: "Resume", href: "/resume" },
+    { name: "Resume", href: "/resume.pdf" },
     { name: "Contact", href: "/contact" }
 ]
 
@@ -174,7 +174,7 @@ function Footer() {
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-white/20">
                         <div className="flex items-center gap-2 text-sm text-white/60">
                             <Copyright className="w-4 h-4" />
-                            <span>2025 Nagesh Merva. All Rights Reserved.</span>
+                            <span>2026 Nagesh Merva. All Rights Reserved.</span>
                         </div>
 
                         <button

@@ -97,7 +97,7 @@ function MainSection() {
                             transition={{ duration: 0.8, delay: 0.6 }}
                             className="order-3 text-center md:text-right"
                         >
-                            <p className="text-xs sm:text-sm text-black">©2025</p>
+                            <p className="text-xs sm:text-sm text-black">©2026</p>
                         </motion.div>
                     </div>
                 </div>

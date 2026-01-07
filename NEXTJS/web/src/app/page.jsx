@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import MainSection from "./components/main/MainSection"
 import LatestWork from "./components/main/LatestWork"
 import { useMainContext } from "./context/MainContext"
+import { Testimonials } from "./components/main/Testimonials"
 
 export default function Home() {
   const { AllData, SetAllData } = useMainContext()
@@ -39,6 +40,7 @@ export default function Home() {
     <div className="h-full w-full overflow-hidden">
       <MainSection />
       <LatestWork />
+      <Testimonials />
     </div>
   )
 }
