@@ -1,4 +1,5 @@
 import { Github, ExternalLink, ArrowUpRight } from 'lucide-react'
+import Link from 'next/link'
 
 function WorkCard({ item, index, isHovered, onHover, onLeave }) {
     return (
@@ -59,11 +60,6 @@ function WorkCard({ item, index, isHovered, onHover, onLeave }) {
                         <h3 className="text-xl font-black leading-tight pr-2 group-hover:text-black transition-colors">
                             {item.title}
                         </h3>
-                        <ArrowUpRight
-                            className={`flex-shrink-0 transition-all duration-300 ${isHovered ? 'opacity-100 translate-x-1 -translate-y-1' : 'opacity-0'
-                                }`}
-                            size={24}
-                        />
                     </div>
                     <p className="text-neutral-600 text-sm leading-relaxed mb-6 flex-1">
                         {item.description}
@@ -80,24 +76,16 @@ function WorkCard({ item, index, isHovered, onHover, onLeave }) {
                                 <Github size={18} className="transition-transform group-hover/link:rotate-12" />
                                 <span>Code</span>
                             </a>
-                            {item.demo && (
-                                <a
-                                    href={item.demo}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group/link flex items-center gap-2 text-sm font-bold text-neutral-700 hover:text-black transition-colors"
-                                >
-                                    <ExternalLink size={18} className="transition-transform group-hover/link:rotate-12" />
-                                    <span>Live</span>
-                                </a>
-                            )}
                         </div>
-                        <div className={`
-                            text-xs font-bold uppercase tracking-wider transition-all duration-300
+                        {item.demo && (
+                            <Link href={item.demo} target='blank_' className={`
+                            text-xs font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 group/link
                             ${isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}
                         `}>
-                            View →
-                        </div>
+                                <ExternalLink size={18} className="transition-transform group-hover/link:rotate-12" />
+                                <span>Live</span>
+                            </Link>
+                        )}
                     </div>
                 </div>
                 <div className="absolute inset-0 rounded-3xl pointer-events-none">

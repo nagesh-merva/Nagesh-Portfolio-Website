@@ -6,9 +6,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useMainContext } from '@/app/context/MainContext'
 
 export function Testimonials() {
+  const { AllData } = useMainContext()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [direction, setDirection] = useState(0)
-  const { AllData } = useMainContext()
 
   const slideVariants = {
     enter: (direction) => ({
@@ -25,7 +25,7 @@ export function Testimonials() {
       x: direction < 0 ? 1000 : -1000,
       opacity: 0
     })
-  };
+  }
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -41,20 +41,26 @@ export function Testimonials() {
   }
 
   return (
-    <section className="py-20 bg-white overflow-hidden">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold font-montserrat mb-12 text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
+    <section id="testimonials">
+      <div className="py-20 px-6 md:px-12 lg:px-20 bg-gradient-to-b from-white to-[#F5F0E8]">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="text-center mb-16"
           >
-            What People Say
-          </motion.span>
-        </h2>
-        <div className="relative max-w-4xl mx-auto">
-          <div className="relative bg-white/90 backdrop-blur-sm m-[2px] p-8 rounded-2xl shadow-lg">
-            <div className="min-h-[300px] flex items-center justify-center">
+            <h2 className="text-4xl md:text-5xl font-black mb-4 text-black">
+              WHAT PEOPLE SAY
+            </h2>
+            <p className="text-lg text-zinc-700">
+              Testimonials from clients and colleagues
+            </p>
+          </motion.div>
+
+          <div className="relative">
+            <div className="relative bg-white p-8 md:p-12 rounded-2xl border border-gray-200 shadow-xl min-h-[340px] flex items-center">
               <AnimatePresence initial={false} custom={direction}>
                 <motion.div
                   key={currentIndex}
@@ -67,50 +73,61 @@ export function Testimonials() {
                     x: { type: "spring", stiffness: 300, damping: 30 },
                     opacity: { duration: 0.2 }
                   }}
-                  className="absolute w-full px-5 "
+                  className="absolute w-11/12 px-8"
                 >
-                  <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-                    <div className="w-32 h-32 rounded-full overflow-hidden flex-shrink-0 aspect-square">
+                  <div className="flex flex-col md:flex-row items-center gap-6">
+                    <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 border-4 border-[#FF4820]">
                       <img
                         src={AllData.testimonials[currentIndex].image}
                         alt={AllData.testimonials[currentIndex].name}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div>
-                      <p className="text-sm md:text-lg font-roboto mb-4 md:mb-6 italic text-gray-700">"{AllData.testimonials[currentIndex].text}"</p>
-                      <p className="font-montserrat font-bold text-base md:text-lg">{AllData.testimonials[currentIndex].name}</p>
-                      <p className="font-roboto text-sm md:text-base text-gray-600">{AllData.testimonials[currentIndex].role}</p>
-                      <p className="font-roboto text-sm md:text-base text-gray-500">{AllData.testimonials[currentIndex].company}</p>
+                    <div className="text-center md:text-left">
+                      <p className="text-lg md:text-xl italic text-zinc-700 mb-4 leading-relaxed">
+                        "{AllData.testimonials[currentIndex].text}"
+                      </p>
+                      <p className="font-black text-lg text-black">
+                        {AllData.testimonials[currentIndex].name}
+                      </p>
+                      <p className="text-zinc-600 font-medium">
+                        {AllData.testimonials[currentIndex].role}
+                      </p>
+                      <p className="text-zinc-500">
+                        {AllData.testimonials[currentIndex].company}
+                      </p>
                     </div>
                   </div>
                 </motion.div>
               </AnimatePresence>
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-100 via-blue-100 to-pink-100 opacity-30" />
-          </div>
-          <button
-            aria-label="Previous Testimonial"
-            className="absolute left-4 md:-left-20 lg:-left-32 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform"
-            onClick={() => paginate(-1)}
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <button
-            aria-label="Next Testimonial"
-            className="absolute right-4 md:-right-20 lg:-right-32 top-1/2 -translate-y-1/2 bg-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform"
-            onClick={() => paginate(1)}
-          >
-            <ChevronRight className="w-5 h-5" />
-          </button>
-          <div className="flex justify-center gap-2 mt-4">
-            {AllData.testimonials.map((_, index) => (
-              <div
-                key={index}
-                className={`w-3 h-3 rounded-full transition-colors ${index === currentIndex ? "bg-blue-500" : "bg-gray-300"
-                  }`}
-              />
-            ))}
+
+            <button
+              onClick={() => paginate(-1)}
+              className="absolute left-0 md:-left-16 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-[#FF4820] hover:bg-[#FF4820] hover:text-white transition-all duration-300"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={() => paginate(1)}
+              className="absolute right-0 md:-right-16 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full border-2 border-gray-200 flex items-center justify-center hover:border-[#FF4820] hover:bg-[#FF4820] hover:text-white transition-all duration-300"
+            >
+              <ChevronRight size={20} />
+            </button>
+
+            <div className="flex justify-center gap-2 mt-6">
+              {AllData.testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setDirection(index > currentIndex ? 1 : -1)
+                    setCurrentIndex(index)
+                  }}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-[#FF4820] w-8" : "bg-gray-300"
+                    }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

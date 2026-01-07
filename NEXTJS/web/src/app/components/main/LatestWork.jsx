@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useMainContext } from "../../context/MainContext"
 import WorkCard from "./WorkCard"
+import Link from "next/link"
 
 function LatestWork() {
     const { AllData } = useMainContext()
@@ -79,7 +80,7 @@ function LatestWork() {
 
                 <div className="text-center mt-20">
                     <button className="group relative inline-flex items-center gap-3 px-8 py-4 bg-black text-white font-bold rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                        <span className="relative z-10">VIEW ALL PROJECTS</span>
+                        <Link href={"/portfolio/#projects"} className="relative z-10">VIEW ALL PROJECTS</Link>
                         <svg
                             className="relative z-10 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
                             fill="none"
