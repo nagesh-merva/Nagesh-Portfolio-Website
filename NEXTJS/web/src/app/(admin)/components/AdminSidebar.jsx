@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Home, Briefcase, Calendar, Award, Users, Book, Layout, Star, Medal, Trophy } from 'lucide-react'
+import { Menu, Home, Briefcase, Calendar, Award, Users, Book, Layout, Star, Medal, Trophy, Globe } from 'lucide-react'
 
 export default function AdminSidebar({ activeSection, setActiveSection }) {
   const sections = [
@@ -15,7 +15,8 @@ export default function AdminSidebar({ activeSection, setActiveSection }) {
     { id: 'achievements', label: 'Achievements', icon: Trophy },
     { id: 'certifications', label: 'Certifications', icon: Award },
     { id: 'volunteering', label: 'Volunteering', icon: Medal },
-    { id: 'blogs', label: 'Blogs', icon: Book }
+    { id: 'blogs', label: 'Blogs', icon: Book },
+    { id: 'freelance', label: 'Freelance', icon: Globe }
   ]
 
   return (

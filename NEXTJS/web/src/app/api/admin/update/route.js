@@ -6,6 +6,13 @@ const convertToArray = (field, value) => {
     if (["achievements", "skills", "tags"].includes(field) && typeof value === "string") {
         return value.split(",").map((item) => item.trim())
     }
+    if (field === "metrics" && typeof value === "string") {
+        try {
+            return JSON.parse(value)
+        } catch {
+            return value
+        }
+    }
     return value
 }
 

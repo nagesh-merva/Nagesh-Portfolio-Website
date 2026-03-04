@@ -18,7 +18,8 @@ export async function GET() {
             "opensource",
             "certifications",
             "blogs",
-            "achievements"
+            "achievements",
+            "freelanceProjects"
         ]
 
         const portfolioData = {}

@@ -116,6 +116,20 @@ export default function ContentEditor({ section, data }) {
             { name: "description", type: "textarea", placeholder: "Description" }
           ]}
         />
+      case 'freelance':
+        return <DynamicSectionComponent
+          section="freelanceProjects"
+          data={data.freelanceProjects}
+          fields={[
+            { name: "title", type: "text", placeholder: "Title" },
+            { name: "category", type: "text", placeholder: "Category (websites/social)" },
+            { name: "image", type: "img", placeholder: "Image" },
+            { name: "description", type: "textarea", placeholder: "Description" },
+            { name: "tags", type: "array", placeholder: "Tags (comma-separated)" },
+            { name: "metrics", type: "textarea", placeholder: "Metrics (JSON string e.g. {\"conversions\":\"+22%\"})" },
+            { name: "link", type: "text", placeholder: "Project URL" }
+          ]}
+        />
       case 'blogs':
         return <DynamicSectionComponent
           section="blogs"

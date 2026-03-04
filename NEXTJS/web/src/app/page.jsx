@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import MainSection from "./components/main/MainSection"
 import LatestWork from "./components/main/LatestWork"
+import FreelanceWork from "./components/main/FreelanceWork"
 import { useMainContext } from "./context/MainContext"
 import { Testimonials } from "./components/main/Testimonials"
 
@@ -39,6 +40,7 @@ export default function Home() {
   return (
     <div className="h-full w-full overflow-hidden">
       <MainSection />
+      <FreelanceWork />
       <LatestWork />
       <Testimonials />
     </div>

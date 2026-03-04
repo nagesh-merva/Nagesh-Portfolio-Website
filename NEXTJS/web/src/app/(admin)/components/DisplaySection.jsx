@@ -235,10 +235,14 @@ const DynamicSectionComponent = ({ section, data, fields }) => {
         }
 
         if (field.type === "textarea") {
+            const textValue = typeof item[field.name] === 'object' && item[field.name] !== null
+                ? JSON.stringify(item[field.name], null, 2)
+                : (item[field.name] || "")
+
             return (
                 <textarea
                     ref={textareaRef}
-                    value={item[field.name] || ""}
+                    value={textValue}
                     onChange={(e) => {
                         handleLocalChange(index, field.name, e.target.value)
                         adjustTextareaHeight()
@@ -254,7 +258,13 @@ const DynamicSectionComponent = ({ section, data, fields }) => {
         return (
             <input
                 type="text"
-                value={Array.isArray(item[field.name]) ? item[field.name].join(", ") : item[field.name] || ""}
+                value={
+                    Array.isArray(item[field.name])
+                        ? item[field.name].join(", ")
+                        : typeof item[field.name] === 'object' && item[field.name] !== null
+                            ? JSON.stringify(item[field.name])
+                            : (item[field.name] || "")
+                }
                 onChange={(e) =>
                     handleLocalChange(index, field.name, field.type === "array" ? e.target.value : e.target.value)
                 }
